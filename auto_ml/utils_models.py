@@ -590,7 +590,10 @@ def insert_deep_learning_model(pipeline_step, file_name):
     random_name = pipeline_step.model
     # Load the Keras model here
     keras_file_name = file_name[:-5] + random_name + '_keras_deep_learning_model.h5'
-
+    try:
+        keras_load_model
+    except NameError:
+        from keras.models import load_model as keras_load_model
     model = keras_load_model(keras_file_name)
 
     # Put the model back in place so that we can still use it to get predictions without having to load it back in from disk
